@@ -9,7 +9,7 @@ variable "ami_id" {
 }
 
 variable "instance_type" {
-  description = "Tipo da instância"
+  description = "Tipo da instância EC2"
   type        = string
 }
 
@@ -32,8 +32,3 @@ variable "subnet_id_private" {
   description = "ID da subnet PRIVADA da EC2"
   type        = string
 }
-
-# variable "public_ip" {
-#   description = "Se a instância deve receber um IP público ou não"
-#   type        = bool
-# }

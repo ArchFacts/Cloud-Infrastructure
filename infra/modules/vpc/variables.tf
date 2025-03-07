@@ -18,7 +18,13 @@ variable "private_subnet_cidrs" {
   type        = list(string)
 }
 
-variable "nat_gateway" {
+variable "nat_gateway_enabled" {
   description = "Habilitação do NAT Gateway para a subrede"
   type        = bool
+}
+
+variable "nat_gateway_subnet_index" {
+  description = "Valor do índice da subnet pública que será alocada ao NAT Gateway"
+  type        = number
+  default     = 0
 }

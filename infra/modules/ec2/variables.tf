@@ -24,11 +24,16 @@ variable "private_instance_count" {
 }
 
 variable "subnet_id_public" {
-  description = "ID da subnet PÚBLICA da EC2"
-  type        = string
+  description = "Lista de IDs da subnet PÚBLICA da EC2"
+  type        = list(string)
 }
 
 variable "subnet_id_private" {
-  description = "ID da subnet PRIVADA da EC2"
+  description = "Lista de IDs da subnet PRIVADA da EC2"
+  type        = list(string)
+}
+
+variable "key_name" {
+  description = "Nome da chave SSH para o acesso das EC2"
   type        = string
 }

@@ -37,12 +37,6 @@ variable "nat_gateway_subnet_index" {
   default     = 0
 }
 
-variable "instance_type" {
-  description = "Qual o tipo da instância EC2"
-  type        = string
-  default     = "t2.micro"
-}
-
 ####################################### EC2 VARIABLES
 
 

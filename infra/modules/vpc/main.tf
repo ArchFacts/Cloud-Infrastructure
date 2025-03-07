@@ -66,6 +66,8 @@ resource "aws_route_table_association" "public_subnet_association" {
 
 #IP ELÁSTICO OBRIGATÓRIO PARA O NAT_GATEWAY
 resource "aws_eip" "nat_eip" {
+  vpc = true
+
   tags = {
     Terraform   = "true"
     Environment = "prod"
@@ -74,8 +76,8 @@ resource "aws_eip" "nat_eip" {
 }
 
 resource "aws_nat_gateway" "nat_gateway" {
-  allocation_id = aws_eip.nat_eip
-  subnet_id     = aws_subnet.public_subnet[count.index].id
+  allocation_id = aws_eip.nat_eip.id
+  subnet_id     = aws_subnet.public_subnet[0].id
 
   tags = {
     Terraform   = "true"
@@ -88,8 +90,8 @@ resource "aws_route_table" "nat_route_table" {
   vpc_id = aws_vpc.ArchFacts_Main_VPC.id
 
   route {
-    cidr_block     = "0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.nat_gateway
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.nat_gateway.id
   }
 
   tags = {
@@ -102,5 +104,5 @@ resource "aws_route_table" "nat_route_table" {
 resource "aws_route_table_association" "private_subnet_association" {
   count          = length(var.private_subnet_cidrs)
   subnet_id      = aws_subnet.private_subnet[count.index].id
-  route_table_id = aws_route_table.nat_route_table
+  route_table_id = aws_route_table.nat_route_table.id
 }

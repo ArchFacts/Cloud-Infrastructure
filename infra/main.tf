@@ -10,7 +10,7 @@ terraform {
 }
 
 provider "aws" {
-  region = var.region.aws
+  region = var.aws_region
 }
 
 module "vpc" {

@@ -4,6 +4,7 @@ ami_id                 = "ami-04b4f1a9cf54c11d0"
 instance_type          = "t2.micro"
 public_instance_count  = 1
 private_instance_count = 1
+key_name = "ArchFacts-EC2-Key"
 
 #Variáveis para a VPC
 vpc_cidr           = "10.0.0.0/24"

@@ -33,7 +33,7 @@ module "ec2_public" {
   instance_type          = var.instance_type
   public_instance_count  = var.public_instance_count
   private_instance_count = var.private_instance_count
-  subnet_id_public       = module.vpc.public_subnet_ids[0]
-  subnet_id_private      = module.vpc.private_subnet_ids[0]
+  subnet_id_public       = module.vpc.public_subnet_ids
+  subnet_id_private      = module.vpc.private_subnet_ids
   key_name               = var.key_name
 }

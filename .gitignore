@@ -1,0 +1,10 @@
+*.env
+*.pem
+
+#Terraform files
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.backup
+.terraform/
+terraform.lock.hcl

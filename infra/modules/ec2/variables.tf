@@ -9,7 +9,7 @@ variable "ami_id" {
 }
 
 variable "instance_type" {
-  description = "Tipo da instância"
+  description = "Tipo da instância EC2"
   type        = string
 }
 
@@ -24,16 +24,16 @@ variable "private_instance_count" {
 }
 
 variable "subnet_id_public" {
-  description = "ID da subnet PÚBLICA da EC2"
-  type        = string
+  description = "Lista de IDs da subnet PÚBLICA da EC2"
+  type        = list(string)
 }
 
 variable "subnet_id_private" {
-  description = "ID da subnet PRIVADA da EC2"
-  type        = string
+  description = "Lista de IDs da subnet PRIVADA da EC2"
+  type        = list(string)
 }
 
-# variable "public_ip" {
-#   description = "Se a instância deve receber um IP público ou não"
-#   type        = bool
-# }
+variable "key_name" {
+  description = "Nome da chave SSH para o acesso das EC2"
+  type        = string
+}

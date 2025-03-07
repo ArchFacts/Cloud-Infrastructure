@@ -11,6 +11,7 @@ terraform {
 
 provider "aws" {
   region = var.aws_region
+  access_key = var.AWS_ACESS_KEY_ID
 }
 
 module "vpc" {

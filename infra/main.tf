@@ -24,7 +24,7 @@ module "vpc" {
   nat_gateway_subnet_index = var.nat_gateway_subnet_index
 }
 
-module "ec2" {
+module "ec2_public" {
   source = "./modules/ec2"
 
   instance_name          = var.instance_name
@@ -34,4 +34,5 @@ module "ec2" {
   private_instance_count = var.private_instance_count
   subnet_id_public       = module.vpc.public_subnet_ids[0]
   subnet_id_private      = module.vpc.private_subnet_ids[0]
+  key_name               = var.key_name
 }

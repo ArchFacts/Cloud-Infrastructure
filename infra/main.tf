@@ -10,7 +10,7 @@ terraform {
 }
 
 provider "aws" {
-  region = var.aws_region
+  region  = var.aws_region
   profile = "default"
 }
 
@@ -25,7 +25,7 @@ module "vpc" {
   nat_gateway_subnet_index = var.nat_gateway_subnet_index
 }
 
-module "ec2_public" {
+module "ec2" {
   source = "./modules/ec2"
 
   instance_name          = var.instance_name
@@ -36,4 +36,18 @@ module "ec2_public" {
   subnet_id_public       = module.vpc.public_subnet_ids
   subnet_id_private      = module.vpc.private_subnet_ids
   key_name               = var.key_name
+  public_key_content     = file("keys/${var.key_name}.pub")
+  sg_id                  = module.vpc.vpc_id
+}
+
+module "security" {
+  source = "./modules/security"
+
+  vpc_id               = module.vpc.vpc_id
+  vpc_name             = var.vpc_name
+  instance_name        = var.instance_name
+  public_subnet_ids    = module.vpc.public_subnet_ids
+  private_subnet_ids   = module.vpc.private_subnet_ids
+  private_subnet_cidrs = var.private_subnets
+  public_subnet_cidrs  = var.public_subnets
 }

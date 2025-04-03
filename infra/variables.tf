@@ -39,7 +39,6 @@ variable "nat_gateway_subnet_index" {
 
 ####################################### EC2 VARIABLES
 
-
 variable "key_name" {
   description = "Nome da chave SSH para o acesso à EC2"
   type        = string

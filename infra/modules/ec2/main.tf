@@ -4,14 +4,16 @@ resource "aws_instance" "ArchFacts_Public_Instance" {
   instance_type               = var.instance_type                 // Tipo da instância
   subnet_id                   = var.subnet_id_public[count.index] // ID PÚBLICO da subnet
   associate_public_ip_address = true                              // Associar ip público para a máquina
-  key_name                    = var.key_name
-  vpc_security_group_ids      = [aws_security_group.ec2_sg.id] // Associando SG a máquina
+  key_name                    = aws_key_pair.ArchFacts_Key.key_name
+  vpc_security_group_ids      = [var.sg_id] // Associando SG a máquina
 
   tags = {
     Terraform   = "true"
     Environment = "prod"
     Name        = "Public-${var.instance_name}-${count.index + 1}"
   }
+
+  depends_on = [aws_key_pair.ArchFacts_Key] // Para garantir que a ordem de criação será feita corretamente
 }
 
 resource "aws_instance" "ArchFacts_Private_Instance" {
@@ -20,45 +22,19 @@ resource "aws_instance" "ArchFacts_Private_Instance" {
   instance_type               = var.instance_type
   subnet_id                   = var.subnet_id_private[count.index]
   associate_public_ip_address = false
-  key_name                    = var.key_name
-  vpc_security_group_ids      = [aws_security_group.ec2_sg.id] // Associando SG a máquina
+  key_name                    = aws_key_pair.ArchFacts_Key.key_name
+  vpc_security_group_ids      = [var.sg_id] // Associando SG a máquina
 
   tags = {
     Terraform   = "true"
     Environment = "prod"
     Name        = "Private-${var.instance_name}-${count.index + 1}"
   }
+
+  depends_on = [aws_key_pair.ArchFacts_Key]
 }
 
-resource "aws_security_group" "ec2_sg" {
-  name        = "sg_ec2"
-  description = "Permitir conexões SSH e HTTP"
-  vpc_id      = aws_vpc.ArchFacts_Main_VPC.id
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Terraform   = "true"
-    Environment = "prod"
-    Name        = "sg-${var.instance_name}"
-  }
+resource "aws_key_pair" "ArchFacts_Key" {
+  key_name   = var.key_name
+  public_key = var.public_key_content
 }

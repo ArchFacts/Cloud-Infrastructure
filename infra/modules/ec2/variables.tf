@@ -37,3 +37,13 @@ variable "key_name" {
   description = "Nome da chave SSH para o acesso das EC2"
   type        = string
 }
+
+variable "sg_id" {
+  description = "ID do security group da EC2"
+  type        = string
+}
+
+variable "public_key_content" {
+  description = "Caminho da chave pública para acesso da EC2"
+  type        = string
+}

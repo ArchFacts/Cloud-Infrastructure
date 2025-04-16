@@ -38,8 +38,13 @@ variable "key_name" {
   type        = string
 }
 
-variable "sg_id" {
-  description = "ID do security group da EC2"
+variable "sg_public_id" {
+  description = "ID do security group PUBLICO da EC2"
+  type        = string
+}
+
+variable "sg_private_id" {
+  description = "ID do security group PRIVATE da EC2"
   type        = string
 }
 

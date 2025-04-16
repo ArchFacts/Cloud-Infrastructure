@@ -37,13 +37,15 @@ module "ec2" {
   subnet_id_private      = module.vpc.private_subnet_ids
   key_name               = var.key_name
   public_key_content     = file("keys/${var.key_name}.pub")
-  sg_id                  = module.vpc.vpc_id
+  sg_public_id           = module.security.sg_public_id
+  sg_private_id          = module.security.sg_private_id
 }
 
 module "security" {
   source = "./modules/security"
 
   vpc_id               = module.vpc.vpc_id
+  vpc_cidr_block       = module.vpc.vpc_cidr_block
   vpc_name             = var.vpc_name
   instance_name        = var.instance_name
   public_subnet_ids    = module.vpc.public_subnet_ids

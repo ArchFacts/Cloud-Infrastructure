@@ -5,7 +5,7 @@ resource "aws_instance" "ArchFacts_Public_Instance" {
   subnet_id                   = var.subnet_id_public[count.index] // ID PÚBLICO da subnet
   associate_public_ip_address = true                              // Associar ip público para a máquina
   key_name                    = aws_key_pair.ArchFacts_Key.key_name
-  vpc_security_group_ids      = [var.sg_id] // Associando SG a máquina
+  vpc_security_group_ids      = [var.sg_public_id] // Associando SG a máquina
 
   tags = {
     Terraform   = "true"
@@ -23,7 +23,7 @@ resource "aws_instance" "ArchFacts_Private_Instance" {
   subnet_id                   = var.subnet_id_private[count.index]
   associate_public_ip_address = false
   key_name                    = aws_key_pair.ArchFacts_Key.key_name
-  vpc_security_group_ids      = [var.sg_id] // Associando SG a máquina
+  vpc_security_group_ids      = [var.sg_private_id] // Associando SG a máquina
 
   tags = {
     Terraform   = "true"

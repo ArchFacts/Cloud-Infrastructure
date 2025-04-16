@@ -32,3 +32,8 @@ variable "private_subnet_ids" {
   description = "lista de IDs das subnets privadas"
   type        = list(string)
 }
+
+variable "vpc_cidr_block" {
+  description = "bloco CIDR da VPC"
+  type        = string
+}

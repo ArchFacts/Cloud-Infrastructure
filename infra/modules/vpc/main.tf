@@ -107,5 +107,5 @@ resource "aws_route_table" "nat_route_table" {
 resource "aws_route_table_association" "private_subnet_association" {
   count          = var.nat_gateway_enabled ? length(var.private_subnet_cidrs) : 0
   subnet_id      = aws_subnet.private_subnet[count.index].id
-  route_table_id = aws_route_table.nat_route_table[count.index].id
+  route_table_id = aws_route_table.nat_route_table[0].id
 }

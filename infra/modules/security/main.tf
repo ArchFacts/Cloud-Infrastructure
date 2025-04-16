@@ -64,6 +64,15 @@ resource "aws_network_acl" "public_acl" {
   }
 
   ingress {
+    rule_no    = 105
+    action     = "allow"
+    protocol   = "icmp"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 0
+  }
+
+  ingress {
     rule_no    = 110
     action     = "allow"
     protocol   = "tcp"
@@ -92,9 +101,6 @@ resource "aws_network_acl" "public_acl" {
     to_port    = 0
   }
 
-
-
-
   tags = {
     Terraform   = "true"
     Environment = "prod"
@@ -108,23 +114,14 @@ resource "aws_network_acl" "private_acl" {
   ingress {
     rule_no    = 100
     action     = "allow"
-    protocol   = "tcp"
-    cidr_block = var.public_subnet_cidrs[0]
-    from_port  = 22
-    to_port    = 22
-  }
-
-  ingress {
-    rule_no    = 110
-    action     = "allow"
-    protocol   = "tcp"
-    cidr_block = var.public_subnet_cidrs[0]
-    from_port  = 80
-    to_port    = 80
+    protocol   = "-1"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 0
   }
 
   egress {
-    rule_no    = 120
+    rule_no    = 110
     action     = "allow"
     protocol   = "-1"
     cidr_block = "0.0.0.0/0"

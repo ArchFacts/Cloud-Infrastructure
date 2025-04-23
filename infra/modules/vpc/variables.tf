@@ -28,3 +28,8 @@ variable "nat_gateway_subnet_index" {
   type        = number
   default     = 0
 }
+
+variable "rds_subnet_group_name" {
+  description = "Nome do grupo de subnets para o RDS"
+  type        = string
+}

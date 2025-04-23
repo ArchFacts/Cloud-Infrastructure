@@ -52,3 +52,8 @@ variable "public_key_content" {
   description = "Caminho da chave pública para acesso da EC2"
   type        = string
 }
+
+variable "key_path" {
+  description = "Caminho da chave privada no computador"
+  type        = string
+}

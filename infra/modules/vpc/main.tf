@@ -9,10 +9,11 @@ resource "aws_vpc" "ArchFacts_Main_VPC" {
 }
 
 resource "aws_subnet" "public_subnet" {
-  count      = length(var.public_subnet_cidrs)
-  vpc_id     = aws_vpc.ArchFacts_Main_VPC.id
-  cidr_block = var.public_subnet_cidrs[count.index]
-
+  count             = length(var.public_subnet_cidrs)
+  vpc_id            = aws_vpc.ArchFacts_Main_VPC.id
+  cidr_block        = var.public_subnet_cidrs[count.index]
+  availability_zone = "us-east-1a"
+  
   tags = {
     Terraform   = "true"
     Environment = "prod"
@@ -21,9 +22,10 @@ resource "aws_subnet" "public_subnet" {
 }
 
 resource "aws_subnet" "private_subnet" {
-  count      = length(var.private_subnet_cidrs)
-  vpc_id     = aws_vpc.ArchFacts_Main_VPC.id
-  cidr_block = var.private_subnet_cidrs[count.index]
+  count             = length(var.private_subnet_cidrs)
+  vpc_id            = aws_vpc.ArchFacts_Main_VPC.id
+  cidr_block        = var.private_subnet_cidrs[count.index]
+  availability_zone = "us-east-1a"
 
   tags = {
     Terraform   = "true"
@@ -108,4 +110,27 @@ resource "aws_route_table_association" "private_subnet_association" {
   count          = var.nat_gateway_enabled ? length(var.private_subnet_cidrs) : 0
   subnet_id      = aws_subnet.private_subnet[count.index].id
   route_table_id = aws_route_table.nat_route_table[0].id
+}
+
+resource "aws_subnet" "dummy_private_subnet" {
+  vpc_id            = aws_vpc.ArchFacts_Main_VPC.id
+  cidr_block        = "10.0.1.0/27"
+  availability_zone = "us-east-1b"
+
+  tags = {
+    Terraform   = "true"
+    Environment = "prod"
+    Name        = "dummy_private_subnet-${var.vpc_name}"
+  }
+}
+
+resource "aws_db_subnet_group" "subnet_group_rds" {
+  name       = var.rds_subnet_group_name
+  subnet_ids = concat(aws_subnet.private_subnet[*].id, [aws_subnet.dummy_private_subnet.id])
+
+  tags = {
+    Terraform   = "true"
+    Environment = "prod"
+    Name        = "subnet_group_rds-${var.vpc_name}"
+  }
 }

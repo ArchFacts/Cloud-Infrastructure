@@ -37,3 +37,8 @@ variable "vpc_cidr_block" {
   description = "bloco CIDR da VPC"
   type        = string
 }
+
+variable "rds_sg_id" {
+  description = "ID do Security Group do RDS"
+  type        = string
+}

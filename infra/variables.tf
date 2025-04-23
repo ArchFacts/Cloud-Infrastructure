@@ -71,3 +71,32 @@ variable "private_instance_count" {
   type        = number
   default     = 1
 }
+
+# Caminho da chave
+variable "key_path" {
+  description = "Caminho da chave privada no computador"
+  type        = string
+}
+
+# Variáveis do RDS
+variable "rds_subnet_group_name" {
+  description = "Nome do grupo de subnets para o RDS"
+  type        = string
+}
+
+variable "db_user" {
+  description = "O nome do usuário do banco de dados"
+  type        = string
+
+}
+
+variable "db_password" {
+  description = "A senha do banco de dados"
+  type        = string
+  sensitive   = true
+}
+
+variable "db_name" {
+  description = "O nome do banco de dados"
+  type        = string
+}

@@ -23,6 +23,7 @@ module "vpc" {
   private_subnet_cidrs     = var.private_subnets
   nat_gateway_enabled      = var.enable_nat_gateway
   nat_gateway_subnet_index = var.nat_gateway_subnet_index
+  rds_subnet_group_name    = var.rds_subnet_group_name
 }
 
 module "ec2" {
@@ -39,6 +40,8 @@ module "ec2" {
   public_key_content     = file("keys/${var.key_name}.pub")
   sg_public_id           = module.security.sg_public_id
   sg_private_id          = module.security.sg_private_id
+  key_path               = var.key_path
+  depends_on             = [module.vpc, module.security, module.rds]
 }
 
 module "security" {
@@ -52,4 +55,16 @@ module "security" {
   private_subnet_ids   = module.vpc.private_subnet_ids
   private_subnet_cidrs = var.private_subnets
   public_subnet_cidrs  = var.public_subnets
+  rds_sg_id            = module.security.rds_sg_id
+}
+
+module "rds" {
+  source = "./modules/rds"
+
+  db_user               = var.db_user
+  db_password           = var.db_password
+  db_name               = var.db_name
+  rds_subnet_group_name = var.rds_subnet_group_name
+  rds_sg_id             = module.security.rds_sg_id
+  depends_on            = [module.vpc]
 }

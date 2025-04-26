@@ -18,3 +18,6 @@ db_user               = "ArchFactsApplication"
 db_password           = "SociaLightArchFacts"
 db_name               = "ArchFactsDB"
 rds_subnet_group_name = "archfacts-db-subnet-group"
+
+private_docker_image = "luisgustavodalmeida/archfacts-backend:latest"
+public_docker_image  = "luisgustavodalmeida/archfacts-frontend:latest"

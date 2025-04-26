@@ -1,5 +1,8 @@
 #!/bin/bash
 
+FRONTEND_IMAGE="${public_docker_image}"
+BACKEND_PRIVATE_IP="${backend_private_ip}"
+
 # Atualiza os pacotes e instala dependências necessárias
 sudo apt-get update -y
 sudo apt-get install -y ca-certificates curl
@@ -27,3 +30,29 @@ sudo systemctl enable docker
 # Use o usuário correto da sua AMI se não for 'ubuntu'
 sudo groupadd docker || true
 sudo usermod -aG docker ubuntu
+
+sleep 10
+
+echo "Puxando a imagem Docker do frontend: ${public_docker_image}"
+sudo docker pull "${public_docker_image}"
+
+if [ $? -ne 0 ]; then
+  echo "Erro ao puxar a imagem do docker hub"
+  exit 1
+fi
+
+echo "Rodando o container frontend com o backend IP: ${backend_private_ip}"
+
+sudo docker run -d \
+  --name "archfacts-frontend" \
+  -p 80:80 \
+  -e BACKEND_PRIVATE_IP="${backend_private_ip}" \
+  "${public_docker_image}"
+
+
+if [ $? -eq 0 ]; then
+  echo "Container frontend rodando com sucesso."
+else
+  echo "Erro ao rodar o container frontend"
+  exit 1
+fi

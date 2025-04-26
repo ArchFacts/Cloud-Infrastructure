@@ -100,3 +100,13 @@ variable "db_name" {
   description = "O nome do banco de dados"
   type        = string
 }
+
+variable "private_docker_image" {
+  description = "Imagem Docker privada"
+  type        = string
+}
+
+variable "public_docker_image" {
+  description = "Imagem Docker privada"
+  type        = string
+}

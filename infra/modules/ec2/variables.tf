@@ -57,3 +57,34 @@ variable "key_path" {
   description = "Caminho da chave privada no computador"
   type        = string
 }
+
+# Variáveis para o banco de dados RDS
+variable "rds_host" {
+  type = string
+}
+
+variable "rds_port" {
+  type = string
+}
+
+variable "rds_database" {
+  type = string
+}
+
+variable "rds_user" {
+  type = string
+}
+
+variable "rds_password" {
+  type = string
+}
+
+variable "private_docker_image" {
+  type = string
+}
+
+variable "public_docker_image" {
+  description = "Imagem Docker pública"
+  type        = string
+}
+

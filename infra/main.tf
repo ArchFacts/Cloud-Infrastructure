@@ -42,6 +42,13 @@ module "ec2" {
   sg_private_id          = module.security.sg_private_id
   key_path               = var.key_path
   depends_on             = [module.vpc, module.security, module.rds]
+  rds_host               = module.rds.rds_endpoint
+  rds_port               = module.rds.rds_port
+  rds_database           = module.rds.rds_database
+  rds_user               = module.rds.rds_user
+  rds_password           = module.rds.rds_password
+  private_docker_image   = var.private_docker_image
+  public_docker_image    = var.public_docker_image
 }
 
 module "security" {

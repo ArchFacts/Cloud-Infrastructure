@@ -37,6 +37,11 @@ variable "nat_gateway_subnet_index" {
   default     = 0
 }
 
+variable "azs" {
+  description = "Zonas de disponibilidade para a VPC"
+  type        = list(string)
+}
+
 ####################################### EC2 VARIABLES
 
 variable "key_name" {

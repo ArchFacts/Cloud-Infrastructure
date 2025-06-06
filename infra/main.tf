@@ -24,6 +24,7 @@ module "vpc" {
   nat_gateway_enabled      = var.enable_nat_gateway
   nat_gateway_subnet_index = var.nat_gateway_subnet_index
   rds_subnet_group_name    = var.rds_subnet_group_name
+  azs                      = var.azs
 }
 
 module "ec2" {

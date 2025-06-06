@@ -13,7 +13,7 @@ resource "aws_subnet" "public_subnet" {
   vpc_id            = aws_vpc.ArchFacts_Main_VPC.id
   cidr_block        = var.public_subnet_cidrs[count.index]
   availability_zone = "us-east-1a"
-  
+
   tags = {
     Terraform   = "true"
     Environment = "prod"
@@ -25,7 +25,7 @@ resource "aws_subnet" "private_subnet" {
   count             = length(var.private_subnet_cidrs)
   vpc_id            = aws_vpc.ArchFacts_Main_VPC.id
   cidr_block        = var.private_subnet_cidrs[count.index]
-  availability_zone = "us-east-1a"
+  availability_zone = var.azs[count.index]
 
   tags = {
     Terraform   = "true"

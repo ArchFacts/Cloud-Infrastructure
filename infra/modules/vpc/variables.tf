@@ -33,3 +33,8 @@ variable "rds_subnet_group_name" {
   description = "Nome do grupo de subnets para o RDS"
   type        = string
 }
+
+variable "azs" {
+  description = "Zonas de disponibilidade para a VPC"
+  type        = list(string)
+}

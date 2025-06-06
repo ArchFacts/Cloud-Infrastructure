@@ -1,8 +1,5 @@
 #!/bin/bash
 
-FRONTEND_IMAGE="${public_docker_image}"
-BACKEND_PRIVATE_IP="${backend_private_ip}"
-
 # Atualiza os pacotes e instala dependências necessárias
 sudo apt-get update -y
 sudo apt-get install -y ca-certificates curl
@@ -33,22 +30,32 @@ sudo usermod -aG docker ubuntu
 
 sleep 10
 
-echo "Puxando a imagem Docker do frontend: ${public_docker_image}"
-sudo docker pull "${public_docker_image}"
+
+PUBLIC_DOCKER_IMAGE="${public_docker_image}"
+BACKEND_SERVERS="${backend_servers}"
+
+echo "Puxando a imagem Docker do frontend: ${public_docker_image}" 
+sudo docker pull "${public_docker_image}" 
 
 if [ $? -ne 0 ]; then
-  echo "Erro ao puxar a imagem do docker hub"
+  echo "Erro ao puxar a imagem do docker hub: ${public_docker_image}" 
   exit 1
 fi
 
-echo "Rodando o container frontend com o backend IP: ${backend_private_ip}"
+echo "Removendo o container frontend se já existir"
+
+sudo docker stop "archfacts-frontend" > /dev/null 2>&1 || true
+sudo docker rm "archfacts-frontend" > /dev/null 2>&1 || true
+
+echo "conteúdo do backend_servers: ${backend_servers}"
+
+echo "Rodando o container frontend com as variaveis de ambiente" 
 
 sudo docker run -d \
   --name "archfacts-frontend" \
   -p 80:80 \
-  -e BACKEND_PRIVATE_IP="${backend_private_ip}" \
+  -e BACKEND_SERVERS="${backend_servers}" \
   "${public_docker_image}"
-
 
 if [ $? -eq 0 ]; then
   echo "Container frontend rodando com sucesso."

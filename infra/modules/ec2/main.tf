@@ -6,9 +6,12 @@ resource "aws_instance" "ArchFacts_Public_Instance" {
   associate_public_ip_address = true                              // Associar ip público para a máquina
   key_name                    = aws_key_pair.ArchFacts_Key.key_name
   vpc_security_group_ids      = [var.sg_public_id] // Associando SG a máquina
+
   user_data = templatefile("${path.module}/../../scripts/config_frontend.sh", {
     public_docker_image = var.public_docker_image
-    backend_private_ip  = aws_instance.ArchFacts_Private_Instance[count.index].private_ip
+    backend_servers = join("\n    ", [
+      for i in aws_instance.ArchFacts_Private_Instance[*].private_ip : "server ${i}:8080;"
+    ])
   })
 
   tags = {

@@ -1,6 +1,6 @@
 resource "aws_security_group" "ec2_sg" {
   name        = "sg_ec2"
-  description = "Permitir conexões SSH e HTTP"
+  description = "Permitir conexoes SSH e HTTP"
   vpc_id      = var.vpc_id
 
   ingress {

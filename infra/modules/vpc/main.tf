@@ -64,7 +64,7 @@ resource "aws_route_table_association" "public_subnet_association" {
   route_table_id = aws_route_table.ig_route_table.id
 }
 
-#IP ELÁSTICO OBRIGATÓRIO PARA O NAT_GATEWAY
+#IP ELASTICO OBRIGATORIO PARA O NAT_GATEWAY
 resource "aws_eip" "nat_eip" {
   count = var.nat_gateway_enabled ? 1 : 0
   vpc   = true

@@ -1,5 +1,5 @@
 variable "instance_name" {
-  description = "Nome da instância EC2"
+  description = "Nome da instancia EC2"
   type        = string
 }
 
@@ -9,7 +9,7 @@ variable "vpc_name" {
 }
 
 variable "public_subnet_cidrs" {
-  description = "Os CIDRs da subrede PÚBLICA"
+  description = "Os CIDRs da subrede PUBLICA"
   type        = list(string)
 }
 
@@ -24,7 +24,7 @@ variable "vpc_id" {
 }
 
 variable "public_subnet_ids" {
-  description = "Lista de IDs das subnets públicas"
+  description = "Lista de IDs das subnets publicas"
   type        = list(string)
 }
 

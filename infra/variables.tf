@@ -1,5 +1,5 @@
 variable "aws_region" {
-  description = "Qual região será utilizada na AWS"
+  description = "Qual regiao sera utilizada na AWS"
   type        = string
   default     = "us-east-1"
 }
@@ -16,7 +16,7 @@ variable "vpc_name" {
 }
 
 variable "public_subnets" {
-  description = "Lista de CIDRs para as subnets PÚBLICAS"
+  description = "Lista de CIDRs para as subnets PUBLICAS"
   type        = list(string)
 }
 
@@ -26,13 +26,13 @@ variable "private_subnets" {
 }
 
 variable "enable_nat_gateway" {
-  description = "Valor BOOLEAN para habilitação do NAT Gateway para subnets privadas"
+  description = "Valor BOOLEAN para habilitacaoo do NAT Gateway para subnets privadas"
   type        = bool
   default     = true
 }
 
 variable "nat_gateway_subnet_index" {
-  description = "Valor do índice da subnet pública onde o NAT Gateway será aplicado"
+  description = "Valor do indice da subnet publica onde o NAT Gateway sera aplicado"
   type        = number
   default     = 0
 }
@@ -45,29 +45,29 @@ variable "key_name" {
 }
 
 variable "instance_name" {
-  description = "Nome da instância EC2"
+  description = "Nome da instancia EC2"
   type        = string
 }
 
 variable "ami_id" {
-  description = "ID da instância EC2"
+  description = "ID da instancia EC2"
   type        = string
 }
 
 variable "instance_type" {
-  description = "Tipo da instância EC2"
+  description = "Tipo da instancia EC2"
   type        = string
   default     = "t2.micro"
 }
 
 variable "public_instance_count" {
-  description = "Quantidade de instâncias públicas EC2 a serem criadas"
+  description = "Quantidade de instancias publicas EC2 a serem criadas"
   type        = number
   default     = 1
 }
 
 variable "private_instance_count" {
-  description = "Quantidade de instâncias privadas EC2 a serem criadas"
+  description = "Quantidade de instancias privadas EC2 a serem criadas"
   type        = number
   default     = 1
 }

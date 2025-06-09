@@ -68,6 +68,6 @@ Terraform plan
 Terraform apply
 ```
 
-5. As máquinas serão criadas, basta fazer o Bastion Jump da máquina pública para a privada e rodar o Backend nela e depois conectar-se no ip da máquina pública:
+5. As máquinas serão criadas, conectando-se via SSH na máquina pública rode o container do Frontend e depois através do Bastion Jump rode Backend nas máquinas privadas, depois conecte-se no ip da máquina pública:
 
 OBS: Este tutorial tem conhecimentos mais avançados, devido a complexidade de alguns passos e também é necessário ter experiência nas ferramentas para resolver quaisquer eventualidades.

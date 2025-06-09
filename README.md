@@ -17,7 +17,7 @@ O projeto é uma solução em nuvem para o projeto Archfacts rodando em nuvem. U
 * Load Balancer: Utilizando o NGINX é feito um balanceamento de carga entre duas máquinas privadas que estão rodando o Backend.
 // * Script Shell: Scripts shell fazem o trabalho de rodar a aplicação automaticamente quando ela é provisionada, menos no Backend, sendo necessário rodar manualmente por fins de segurança dos dados.
   
-  ## Tecnologias Utilizadas
+## Tecnologias Utilizadas
 - AWS
 - Terraform
 - Docker
@@ -63,9 +63,9 @@ terraform.tfvars
 
 4. Rode os comandos
 ```
-Terraform Init
-Terraform Plan
-Terraform Apply
+Terraform init
+Terraform plan
+Terraform apply
 ```
 
 5. As máquinas serão criadas, basta fazer o Bastion Jump da máquina pública para a privada e rodar o Backend nela e depois conectar-se no ip da máquina pública:
